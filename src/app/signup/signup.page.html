@@ -1,0 +1,189 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+    <ion-title>User SignUp</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <form name="form" #f="ngForm" >
+  <ion-list>
+    <ion-item-divider color="danger">Personal Details :</ion-item-divider>
+
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input type="text" name="first_name" #first_name="ngModel" [(ngModel)]="newUser.first_name" required></ion-input>
+ 
+    </ion-item>
+    <div  class="help-block" *ngIf="first_name.touched && first_name.invalid">
+        <p class="errcd" *ngIf="first_name.errors.required"> First name field cannot be blank.</p>
+   
+    </div>
+    <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+      <ion-input name="last_name" #last_name="ngModel" type="text" [(ngModel)]="newUser.last_name" required></ion-input>
+    </ion-item>
+    <div *ngIf="last_name.touched && last_name.invalid">
+      <p class="errcd" *ngIf="last_name.errors.required">Last name cannot be blank.</p>
+    </div>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="newUser.email" name="email" #email="ngModel" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" (ionBlur)="checkEmail()"></ion-input>
+    </ion-item>
+    <div *ngIf="email.touched && email.invalid">
+        <p class="errcd" *ngIf="email.errors.required">Email cannot be blank.</p>
+        <p class="errcd" *ngIf="email.errors.pattern">Please check your email.</p>
+      </div>
+    <ion-item>
+      <ion-label position="floating">User name</ion-label>
+      <ion-input type="text" name="username" #username="ngModel"  (ionBlur)="checkUser()" required [(ngModel)]="newUser.username"></ion-input>
+    </ion-item>
+    <div *ngIf="username.touched && username.invalid">
+        <p class="errcd" *ngIf="username.errors.required">username cannot be blank.</p>
+        
+      </div>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" name="password" #password="ngModel" [(ngModel)]="newUser.password" minlength="6" required></ion-input>
+    </ion-item>
+    <div *ngIf="password.touched && password.invalid">
+        <p class="errcd" *ngIf="password.errors.required">Password cannot be blank.</p>
+      <p class="errcd" *ngIf="password.errors.minlength"> Password cannot be less than 6 characters.</p>
+      </div>
+    <ion-item>
+      <ion-label position="floating">Confirm Password</ion-label>
+      <ion-input type="password" name="cpass" #cpass="ngModel" [(ngModel)]="newUser.confirm_password" required></ion-input>
+    </ion-item>
+    <p class="errcd" *ngIf="cpass.touched && password.value != cpass.value"> Password doesnot match.</p>
+    <div *ngIf="cpass.touched && cpass.invalid">
+        <p class="errcd" *ngIf="cpass.errors.required">Confrim password cannot be blank.</p>
+      
+      </div>
+    <ion-item-divider color="danger">Billing Details :</ion-item-divider>
+
+    <ion-item>
+      <ion-label position="floating">Address Line 1</ion-label>
+      <ion-textarea type="text" name="address_1" #address_1="ngModel"  required [(ngModel)]="newUser.billing.address_1"></ion-textarea>
+    </ion-item>
+    <div *ngIf="address_1.touched && address_1.invalid">
+        <p class="errcd" *ngIf="address_1.errors.required">Address cannot be blank.</p>
+       
+      </div>
+    <ion-item>
+      <ion-label position="floating">Address Line 2</ion-label>
+      <ion-textarea type="text" name="address_2" maxlength="80" #address_2="ngModel" [(ngModel)]="newUser.billing.address_2"></ion-textarea>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Country</ion-label>
+      <ion-select [(ngModel)]="newUser.billing.country" name="country" #country="ngModel"  required>
+        <ion-select-option value="India" selected="true">India</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="country.touched && country.invalid">
+      <p class="errcd" *ngIf="country.errors.invalid"> please select your country. </p>
+    </div>
+    <ion-item>
+      <ion-label position="floating">State</ion-label>
+      <ion-select [(ngModel)]="newUser.billing.state" name="state" #state="ngModel" required>
+        <ion-select-option value="New Delhi" selected="true">New Delhi</ion-select-option>
+        <ion-select-option value="Uttar Pradesh">Uttar Pradesh</ion-select-option>
+        <ion-select-option value="Maharashtra">Maharashtra</ion-select-option>
+        <ion-select-option value="Tamil Nadu">Tamil Nadu</ion-select-option>
+        <ion-select-option value="Madhya Pradesh">Madhya Pradesh</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="state.touched && state.invalid">
+      <p class="errcd" *ngIf="state.errors.required">Please select a state.</p>
+    </div>
+    <ion-item>
+      <ion-label position="floating">City</ion-label>
+      <ion-input type="text" name="city" #city="ngModel" required [(ngModel)]="newUser.billing.city"></ion-input>
+    </ion-item>
+    <div  *ngIf="city.touched && city.invalid">
+      <p class="errcd" *ngIf="city.errors.required">Please Enter your city.</p>
+    </div>
+    <ion-item>
+      <ion-label position="floating">Postal Code</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="newUser.billing.postcode" name="postcode" #postcode="ngModel" pattern="^[1-9][0-9]{5}$" required></ion-input>
+    </ion-item>
+    <div *ngIf="postcode.touched && postcode.invalid">
+      <p class="errcd" *ngIf="postcode.errors.required">Pincode cannot be blank.</p>
+      <p class="errcd" *ngIf="postcode.errors.pattern">Please check your pincode.</p>
+    </div>
+    <ion-item>
+      <ion-label position="floating">Phone</ion-label>
+      <ion-input type="text" name="phone" #phone ="ngModel" clearInput [(ngModel)]="newUser.billing.phone"  required></ion-input>
+    </ion-item>
+    <div *ngIf="phone.touched && phone.invalid">
+        <p class="errcd" *ngIf="phone.errors.required">Phone No cannot be blank.</p>
+       
+      </div>
+    <ion-item>
+      <ion-label position="floating">Same Shipping Details :</ion-label>
+      <ion-checkbox color="success" (ionChange)="setBillingToShipping()"></ion-checkbox>
+    
+    </ion-item>
+
+
+    <ion-item-divider color="danger" *ngIf="!billing_shipping_same">Shipping Details</ion-item-divider>
+
+      <ion-item *ngIf="!billing_shipping_same">
+        <ion-label position="floating" >Address Line 1</ion-label>
+        <ion-textarea type="text" name="shipadd" [(ngModel)]="newUser.shipping.address_1"></ion-textarea>
+      </ion-item>
+
+      <ion-item *ngIf="!billing_shipping_same">
+        <ion-label position="floating">Address Line 2</ion-label>
+        <ion-textarea type="text" name="shippadd2" [(ngModel)]="newUser.shipping.address_2"></ion-textarea>
+      </ion-item>
+
+      <ion-item *ngIf="!billing_shipping_same">
+        <ion-label position="floating">Country</ion-label>
+        <ion-select [(ngModel)]="newUser.shipping.country" name="count">
+          <ion-select-option value="India" selected="true">India</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="!billing_shipping_same">
+        <ion-label position="floating">State</ion-label>
+        <ion-select [(ngModel)]="newUser.shipping.state" name="st">
+          <ion-select-option value="New Delhi" selected="true">New Delhi</ion-select-option>
+          <ion-select-option value="Uttar Pradesh">Uttar Pradesh</ion-select-option>
+          <ion-select-option value="Maharashtra">Maharashtra</ion-select-option>
+          <ion-select-option value="Tamil Nadu">Tamil Nadu</ion-select-option>
+          <ion-select-option value="Madhya Pradesh">Madhya Pradesh</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="!billing_shipping_same">
+        <ion-label position="floating">City</ion-label>
+        <ion-input type="text" name="ct" [(ngModel)]="newUser.shipping.city"></ion-input>        
+      </ion-item>
+
+      <ion-item *ngIf="!billing_shipping_same">
+        <ion-label position="floating">Postal Code</ion-label>
+        <ion-input type="number" name="pin" clearInput [(ngModel)]="newUser.shipping.postcode"></ion-input>        
+      </ion-item>
+
+      <ion-item *ngIf="!billing_shipping_same">
+        <ion-label position="floating">Phone</ion-label>
+        <ion-input type="text" name="phn" clearInput [(ngModel)]="newUser.shipping.phone"></ion-input>        
+      </ion-item>
+
+  </ion-list>
+</form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        
+        <ion-col width-25 text-center>
+          <ion-button  style="width:300px;" [disabled]="f.invalid"  (click)="signup()" > SignUp <ion-icon ios="ios-user" md="md-user"></ion-icon></ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

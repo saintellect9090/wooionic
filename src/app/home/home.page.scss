@@ -1,0 +1,12 @@
+.welcome-card ion-img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+.item ion-thumbnail {
+  min-width: 5rem;    
+  min-height: 5rem;
+  img {
+      max-width: 5rem;    
+      min-width: 5rem;
+  }
+}

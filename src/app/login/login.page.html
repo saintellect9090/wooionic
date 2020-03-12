@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button   routerDirection="root" routerLink="/"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form #f="ngForm" >
+      <ion-card>
+        <img src="../assets/images/store.jpg">
+        <div class="card-title">
+          Login
+        </div>
+        <div class="card-subtitle">Keep Shopping</div>
+      </ion-card>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="text" [(ngModel)]="username" name="name" #name="ngModel" required></ion-input>
+  
+    </ion-item>
+    <div *ngIf="name.touched && name.invalid">
+        <p class="errcd" *ngIf="name.errors.required">Name cannot be blank.</p>
+
+      </div>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" name="pass" #pass="ngModel" required minlength="6"></ion-input>
+      
+    </ion-item>
+    <div *ngIf="pass.touched && pass.invalid">
+        <p class="errcd" *ngIf="pass.errors.required">Password cannot Be Blank.</p>
+        <p class="errcd" *ngIf="pass.errors.minlength">Password cannot be less than 6 characters.</p>
+      </div>
+  </ion-list>
+
+  <ion-button block color="primary" (click)="login()" [disabled]="f.invalid">Login</ion-button>
+  <ion-button clear block color="primary" (click)="signUp()">No Account? Sign Up Here</ion-button>
+  <p style="margin-left: 6px; font-weight:600; color:#3880ff;" (click)="forgot()">Forgot Password!</p>
+</form>
+</ion-content>

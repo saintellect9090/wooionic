@@ -1,0 +1,10 @@
+{
+  "name": "wooion",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+"proxies": [{
+  "path": "/wp-json",
+  "proxyUrl": "http://saiswebhost.com/demo/pink-pitara/"
+}]}

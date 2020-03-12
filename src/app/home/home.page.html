@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title >
+        PinkPitara
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="searchQuery" (search)="onSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+   <ion-card >
+     <ion-slides #registroWizard pager="true" [options]="slideOpts" >
+      <ion-slide *ngFor="let number of [1,2,3,4]">
+        <div >
+        <img src="../../assets/images/{{number}}.jpg" style="height: 190px;">
+        </div>
+      </ion-slide>
+     </ion-slides>
+   </ion-card>
+
+<ion-grid>
+  <ion-row>
+    <ion-slides autoplay="3000"  loop="true" speed="3000" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)" >
+      <ion-slide  *ngFor="let product of products">
+        
+        <ion-card padding>
+          <img [src]="product.images[0].src" style="height: 220px;">
+          <h2 center padding>{{product.name}}</h2>
+          <p  padding [innerHtml]="product.short_description"></p>
+       
+        </ion-card>
+       
+      </ion-slide>
+    </ion-slides>
+  </ion-row>
+</ion-grid>
+<ion-card>
+    <div>
+      <img src="../../assets/images/girl.jpg" style="height: 166sssspx;">
+    </div>
+  </ion-card>
+<ion-list>
+  <ion-item *ngFor="let pro of products" (click)="openDetail(pro)" >
+    <ion-thumbnail item-left>
+      <img [src]="pro.images[0].src">
+    </ion-thumbnail>
+    <div item-right style="margin-left:1.8em;">
+    <p style="font-size: 19px;" text-wrap> {{pro.name}} </p>
+    <p style="font-size : 14px; letter-spacing: 0.5px;">
+      <span [innerHTML]="pro.short_description.substr(0,60) + '...'"></span>
+      <span [innerHTML]="pro.price | currency:'INR'"></span>
+    </p>
+    </div>
+    <ion-button small color="primary">   <ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-button>
+  </ion-item>
+</ion-list>
+<ion-infinite-scroll (ionInfinite)="loadMore($event)" threshold="50%">
+<ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>

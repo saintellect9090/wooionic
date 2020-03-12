@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+    <ion-title>{{category | titlecase}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let pro of products">
+      <ion-thumbnail item-left>
+        <img [src]="pro.images[0].src">
+      </ion-thumbnail>
+      <div item-right style="margin-left:1.8em;">
+      <h2 text-wrap> {{pro.name}} </h2>
+      <p>
+        <span [innerHTML]="pro.short_description.substr(0,60) + '...'"></span>
+        <span [innerHTML]="pro.price | currency:'INR'"></span>
+      </p>
+      </div>
+      <button ion-button item-right>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

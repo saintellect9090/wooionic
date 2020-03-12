@@ -1,0 +1,35 @@
+<ion-header>
+  
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button  routerDirection="root"  routerLink="/"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Search Result For: <b>{{queryParams | titlecase}}</b></ion-title>
+  </ion-toolbar>
+</ion-header>  
+  
+  <ion-content padding>
+      <ion-list>
+          <ion-item *ngFor="let pro of products" (click)="openDetail(pro)" routerDirection="forward">
+            <ion-thumbnail item-left>
+              <img [src]="pro.images[0].src">
+            </ion-thumbnail>
+            <div item-right style="margin-left:1.8em;">
+            <p style="font-size: 19px;" text-wrap> {{pro.name}} </p>
+            <p style="font-size : 14px; letter-spacing: 0.5px;">
+              <span [innerHTML]="pro.short_description.substr(0,60) + '...'"></span>
+              <span [innerHTML]="pro.price | currency:'INR'"></span>
+            </p>
+            </div>
+            <ion-button small color="primary">   <ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-button>
+          </ion-item>
+        </ion-list>
+        <ion-card *ngIf="showEmptyCartMessage"> 
+          <img  style="width:100%; height:280px;" src="../../assets/images/no_product.png">
+        </ion-card>
+        
+        
+        <ion-infinite-scroll (ionInfinite)="loadMore($event)" threshold="50%">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+  </ion-content>

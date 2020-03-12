@@ -1,0 +1,70 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu type="overlay">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="card-background-page">
+        <ion-card>
+          <img src="../assets/images/store.jpg">
+          <div class="card-title">
+            PINKPITARA
+          </div>
+          <div class="card-subtitle">Keep Shopping</div>
+        </ion-card>
+        <ion-list>
+            <ion-item-divider color="danger" style=" margin-top:8px!important;
+            margin-bottom: 8px!important;
+            padding: 10px!important;">Account</ion-item-divider>
+            <ion-menu-toggle auto-hide="false" >
+                <ion-item  (click)="openPage('cart')" routerDirection="forward" >
+                    <ion-icon name="md-cart" item-left large></ion-icon>
+                    <p>Your Cart ({{items}})</p>
+                    
+                  </ion-item>
+              <ion-item  (click)="openPage('signup')" routerDirection="forward" *ngIf="!loggedIn">
+                <ion-icon name="md-clipboard" item-left large></ion-icon>
+                <p>Sign Up</p>
+                
+              </ion-item>
+        
+              <ion-item (click)="openPage('login')" [routerDirection]="'root'" *ngIf="!loggedIn">
+                <ion-icon name="log-in" item-left large></ion-icon>
+                <p>Login</p>
+              
+              </ion-item>
+        
+              <ion-item *ngIf="loggedIn" menuClose>
+                <ion-icon name="contact"  item-left large></ion-icon>
+                <!-- <h2>{{ (this.user.firstname == '' ? this.user.username : this.user.firstname) || "" }}</h2> -->
+                <p *ngIf="loggedIn"> Welcome {{username | titlecase}}</p>
+                
+              </ion-item>
+             
+         
+        
+              <ion-item *ngIf="loggedIn" (click)="openPage('logout')" menuClose="left">
+                <ion-icon name="log-out" item-left large></ion-icon>
+                <p> Logout</p>
+              
+              </ion-item>
+            </ion-menu-toggle>
+        
+  
+                 <!-- <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+                    <ion-item  text-wrap (click)="gotoNav(p)" routerDirection="forward">
+                    
+                      <ion-icon name="arrow-dropright" item-left large></ion-icon>
+                        <h4>{{p.name  | titlecase }}</h4>
+                       
+                    </ion-item>
+                  </ion-menu-toggle> -->
+
+      </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

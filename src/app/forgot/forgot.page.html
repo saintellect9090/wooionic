@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button   routerDirection="root" routerLink="/"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Reset Password</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form #f="ngForm" >
+      <ion-card>
+        <img src="../assets/images/store.jpg">
+        <div class="card-title">
+         Reset Password
+        </div>
+        <div class="card-subtitle">Keep Shopping</div>
+      </ion-card>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Username Or Email</ion-label>
+      <ion-input type="text" [(ngModel)]="username" name="name" #name="ngModel" required></ion-input>
+  
+    </ion-item>
+    <div *ngIf="name.touched && name.invalid">
+        <p class="errcd" *ngIf="name.errors.required">Username / Email cannot be blank.</p>
+
+      </div>
+  </ion-list>
+
+  <ion-button block color="primary" (click)="retrive()" [disabled]="f.invalid">Reset Password</ion-button>
+  
+</form>
+</ion-content>
